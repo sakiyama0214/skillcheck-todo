@@ -8,9 +8,9 @@ const InputForm = (props) => {
         type='text'
         label='title'
         value={todoTitle}
-        onChange={() => handleSet}
+        onChange={handleSet}
       />
-      <button onClick={() => handleAdd}>作成</button>
+      <button onClick={handleAdd}>作成</button>
     </div>
   );
 };
