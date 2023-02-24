@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 
 import InputForm from "./components/InputForm";
+import TodoList from "./components/TodoList";
+import EditForm from "./components/EditForm";
 
 const App= () => {
     const [todos, setTodos] = useState([]);
     const [todoTitle, setTodoTitle] = useState('');
     const [todoId, setTodoId] = useState(1);
     const [isEditing, setIsEditing] = useState(false);
+    const [newTitle, setNewTitle] = useState('');
+    const [editId, setEditId] = useState();
 
     const handleSetTodoTitle =(e) => {
         setTodoTitle(e.target.value);
@@ -24,10 +28,47 @@ const App= () => {
         setTodos(newTodos);
     }
 
+    const handleEditInputChange = (e) => {
+        setNewTitle(e.target.value);
+    }
+
+    const onClickEdit = ({title, id}) => {
+        setIsEditing(true);
+        setEditId(id);
+        setNewTitle(title);
+    }
+
+    const handleEditTodo = () => {
+        setTodos([...todos].map((todo) => {
+        return todo.id === editId ? {...todo, title: newTitle}
+        : todo
+        }));
+        setIsEditing(false);
+    }
+
+    const onClickBack = () => {
+        setIsEditing(false);
+    }
+
+    const handleStatusChange = ({id}, e) => {
+        const newTodos = todos.map((todo) => {
+            return ({...todo})
+        });
+
+        setTodos(newTodos.map((todo) =>
+        todo.id === id ? {...todo, status: e.target.value}: todo
+        ));
+    };
+
     return (
         <>
             {isEditing ? (
-                <div></div>
+                <EditForm
+                    newTitle={newTitle}
+                    handleEditInputChange={handleEditInputChange}
+                    handleEditTodo={handleEditTodo}
+                    onClickBack={onClickBack}
+                />
             ) : (
                 <InputForm
                     todoTitle={todoTitle}
@@ -36,25 +77,12 @@ const App= () => {
                 />
             )}
             
-            <div className="incomplete-list">
-                <ul>
-                    {todos.map((todo,index) => {
-                        return (
-                            <li key={todo.id}>
-                                <span>{todo.title}</span>
-                                <select value={todo.status}>
-                                    <option value='notStarted'>未着手</option>
-                                    <option value='inProgress'>作業中</option>
-                                    <option value='done'>完了</option>
-                                </select>
-                                <button>編集</button>
-                                <button onClick={() => onClickDelete(index)}>削除</button>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
-            <div className="complete-list"></div>
+            <TodoList
+                todos={todos}
+                handleStatusChange={handleStatusChange}
+                onClickEdit={onClickEdit}
+                onClickDelete={onClickDelete} 
+            />
         </>
         
     )
