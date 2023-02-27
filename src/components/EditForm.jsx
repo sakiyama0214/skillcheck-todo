@@ -1,7 +1,6 @@
 import React from 'react'
 
-const EditForm = (props) => {
-    const {newTitle, handleEditInputChange, handleEditTodo, onClickBack} = props;
+export const EditForm = ({newTitle, handleEditInputChange, handleEditTodo, onClickBack}) => {
   return (
     <div className="input-area">
         <input
@@ -15,5 +14,3 @@ const EditForm = (props) => {
     </div>
   );
 };
-
-export default EditForm;

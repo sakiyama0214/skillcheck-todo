@@ -1,7 +1,6 @@
 import React from "react";
 
-const TodoList = (props) => {
-    const {todos, handleStatusChange, onClickEdit, onClickDelete} = props;
+export const TodoList = ({todos, handleStatusChange, onClickEdit, onClickDelete}) => {
     return (
         <div className="todo-list">
             <ul>
@@ -15,7 +14,7 @@ const TodoList = (props) => {
                                 <option value='done'>完了</option>
                             </select>
                             <button onClick={() => onClickEdit(todo)}>編集</button>
-                            <button onClick={() => onClickDelete(index)}>削除</button>
+                            <button onClick={() => onClickDelete(todo)}>削除</button>
                         </li>
                     );
                 })}
@@ -23,5 +22,3 @@ const TodoList = (props) => {
         </div>
     );
 };
-
-export default TodoList;

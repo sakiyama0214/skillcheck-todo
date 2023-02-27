@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import InputForm from "./components/InputForm";
-import TodoList from "./components/TodoList";
-import EditForm from "./components/EditForm";
+import { InputForm } from "./components/InputForm";
+import { TodoList } from "./components/TodoList";
+import { EditForm } from "./components/EditForm";
 
 const App= () => {
     const [todos, setTodos] = useState([]);
@@ -22,10 +22,8 @@ const App= () => {
         console.log(todos);
     };
 
-    const onClickDelete = (index) => {
-        const newTodos = [...todos];
-        newTodos.splice(index,1);
-        setTodos(newTodos);
+    const onClickDelete = (targetTodo) => {
+        setTodos(todos.filter((todo) => todo !== targetTodo))
     }
 
     const handleEditInputChange = (e) => {

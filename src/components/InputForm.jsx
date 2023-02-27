@@ -1,7 +1,6 @@
 import React from 'react'
 
-const InputForm = (props) => {
-  const {todoTitle, handleSet, handleAdd} = props;
+export const InputForm = ({todoTitle, handleSet, handleAdd}) => {
   return (
     <div className="input-area">
       <input
@@ -14,5 +13,3 @@ const InputForm = (props) => {
     </div>
   );
 };
-
-export default InputForm;
